@@ -2,6 +2,10 @@
 
 
 
+  
+
+
+
 
 //Load javascirpt when page after loading 
 window.onload = function() {
@@ -74,6 +78,7 @@ function start(){
     movesCounter = 0; 
     solvedCards = [];
     sec=0;
+    setInterval(timer);
     openCards = [];
 	Stars.forEach(function(star){
 	star.style.visibility="visible";
@@ -170,6 +175,7 @@ function correctCards(openCards){
 	solvedCards.push(...openCards);
     matchedCounter++;
     Congratulation();
+    clearInterval ( timer );
    
 
 
@@ -179,7 +185,7 @@ function correctCards(openCards){
 	setTimeout(function()
     {
     clearInterval ( timer );
-	Congratulation()},1000);
+	  Congratulation()},1000);
 
        
 	}
