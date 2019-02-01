@@ -3,6 +3,8 @@
 
 # Memory Game Project
 
+<img src="img/brain-solid.svg" height="100px" width="100px"/>
+
 ## Table of Contents
 * [Instructions](#instructions)
 * [Credit](#credit)
