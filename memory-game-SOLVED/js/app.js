@@ -174,8 +174,7 @@ function correctCards(openCards){
 	// add the card to list of matched cards
 	solvedCards.push(...openCards);
     matchedCounter++;
-    Congratulation();
-    clearInterval ( timer );
+    
    
 
 
@@ -184,7 +183,7 @@ function correctCards(openCards){
 	end(); 
 	setTimeout(function()
     {
-    clearInterval ( timer );
+         clearInterval ( timer );
 	  Congratulation()},1000);
 
        
