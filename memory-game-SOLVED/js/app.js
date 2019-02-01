@@ -1,6 +1,11 @@
 
+
+
+
+
 //Load javascirpt when page after loading 
 window.onload = function() {
+
 
 //VARIABLES
 let starNo =2; // number of stars on the page - index (0-2)
@@ -45,14 +50,16 @@ function start(){
      	SHCards[i].classList.add(CardsClass[i]);
       }
 
-    startTimer();
+   
  }
 
 
 
 //Reset all variable and list
 
-Reset.addEventListener('click', function (event) {
+
+
+	Reset.addEventListener('click', function (event) {
 
      
 	for (let solved of solvedCards){
@@ -66,6 +73,8 @@ Reset.addEventListener('click', function (event) {
     moves.textContent = 0;	
     movesCounter = 0; 
     solvedCards = [];
+    sec=0;
+    openCards = [];
 	Stars.forEach(function(star){
 	star.style.visibility="visible";
 	for(let i=0 ; i<Cards.length; i++){
@@ -81,14 +90,22 @@ Reset.addEventListener('click', function (event) {
 
 
 })
-
+ var click=0;
 //Card Click 
+
+
+function clickedCard(event){
+
+
+}
 Cards.forEach(function(card){
 	card.addEventListener('click', function (event) {
 	// with each click increment moves and open the card	
 	moves.textContent++;
+	card.style.pointerEvents="none"
     openingCard(card);
-        
+
+         
 })
 })
 
@@ -115,8 +132,8 @@ function openingCard(card){
    
    // compare if the number of card flipped equal 2
     if(openCards.length === 2 ){ 
-    
-        checkCards(openCards);
+       
+        checkCards(openCards);   
         // after checking empty the list of flipped card
         openCards = [];   
   
@@ -129,6 +146,7 @@ function openingCard(card){
 //Check the flipped card if they are the same. 
 function checkCards(openCards){
 
+    
 	if(openCards[0].firstElementChild.className === openCards[1].firstElementChild.className){
 		correctCards(openCards);
 
@@ -151,13 +169,16 @@ function correctCards(openCards){
 	// add the card to list of matched cards
 	solvedCards.push(...openCards);
     matchedCounter++;
+    Congratulation();
+   
 
 
-
+  
  	if(matchedCounter===8){
 	end(); 
 	setTimeout(function()
     {
+    clearInterval ( timer );
 	Congratulation()},1000);
 
        
@@ -175,7 +196,7 @@ function correctCards(openCards){
 
 
 // One star removed for 2 wronged moves
-       if(movesCounter%2===0 &&  movesCounter>0){
+       if(movesCounter%5 ===0 &&  movesCounter>0){
 
         console.log("remove!")
     	removeStar();
@@ -183,40 +204,37 @@ function correctCards(openCards){
  // flipped out the card
 	openCards[0].classList.remove('open','show');
     openCards[1].classList.remove('open','show');
+    openCards[0].style.pointerEvents="auto";
+    openCards[1].style.pointerEvents="auto";
 
 	}
 
 
 // Timer function from https://stackoverflow.com/questions/41632942/how-to-measure-time-elapsed-on-javascript
-var startTime, endTime, seconds;
+var sec = 0;
+    function pad ( val ) { return val > 9 ? val : "0" + val; }
+    var timer = setInterval( function(){
+        document.getElementById("seconds").innerHTML=pad(++sec%60);
+        document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
+    }, 1000);
 
-function startTimer() {
-  startTime = new Date();
-};
-
-function end() {
-  endTime = new Date();
-  var timeDiff = endTime - startTime; //in ms
-  // strip the ms
-  timeDiff /= 1000;
-
-  // get seconds 
-  seconds = Math.round(timeDiff);
-  
-}
-
+            
 
 function Congratulation() {
   var txt;
    starNo++;
-  if (confirm("Congratulation!! You solved it. \n you have "+starNo+" stars. \n In "+seconds+" seconds.")) {
-    txt = "You pressed OK!";
-  } else {
-    txt = "You pressed Cancel!";
+
+
+	    swal({
+      title: "Congratulation!!",
+	  text: "You solved it. \n you have "+starNo+" stars. \n In "+ document.getElementById("minutes").innerHTML +":" +document.getElementById("seconds").innerHTML+" seconds.", 
+  	  type: "success",
+  	   confirmButtonText: 'Reset',
+      showCancelButton: true
+    }, function() {
+      location.reload();
+      
+    });
   }
-  document.getElementById("demo").innerHTML = txt;
-}
 
-
-
-}
+}    
