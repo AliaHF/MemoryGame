@@ -1,13 +1,5 @@
 
-
-
-
-  
-
-
-
-
-//Load javascirpt when page after loading 
+//Load javascirpt 
 window.onload = function() {
 
 
@@ -18,7 +10,8 @@ let solvedCards = []; // list of matched cards
 let movesCounter = 0; // number of moved player made ( decremnting the stars based on moves counter )
 const Cards =   document.querySelectorAll('.card'); // cards 
 const SHCards =   document.querySelectorAll('.shuffle'); // for shuffling - 
-let CardsClass = ['fa-diamond', 'fa-diamond', 'fa-paper-plane-o', 'fa-paper-plane-o', 'fa-anchor', 'fa-anchor', 'fa-bolt', 'fa-bolt',  'fa-cube', 'fa-cube', 'fa-leaf', 'fa-leaf', 'fa-bicycle' , 'fa-bicycle', 'fa-bomb' , 'fa-bomb'] ; // classes to add to cards 
+let symbols = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb']; // classes to add to cards 
+let CardsClass = symbols.concat(symbols); // this will double the values of the symbols array.
 const Desks = document.querySelectorAll('.desk'); 
 const Stars = document.querySelectorAll('.fa-star'); 
 let moves = document.querySelector('.moves'); // moves
@@ -118,7 +111,7 @@ Cards.forEach(function(card){
 
 // Remove star
  function removeStar(){
- 	if(document.querySelector('.fa-star') && starNo != -1){
+ 	if(document.querySelector('.fa-star') && starNo != 0){
 	   Stars[starNo].style.visibility = 'hidden';
        movesCounter=0;
 	   starNo--;
@@ -180,7 +173,7 @@ function correctCards(openCards){
 
   
  	if(matchedCounter===8){
-	end(); 
+	
 	setTimeout(function()
     {
          clearInterval ( timer );
@@ -200,10 +193,7 @@ function correctCards(openCards){
     movesCounter++;
 
 
-// One star removed for 2 wronged moves
        if(movesCounter%5 ===0 &&  movesCounter>0){
-
-        console.log("remove!")
     	removeStar();
     }
  // flipped out the card
@@ -243,3 +233,8 @@ function Congratulation() {
   }
 
 }    
+
+
+
+
+  
