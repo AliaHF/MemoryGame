@@ -91,11 +91,6 @@ function start(){
  var click=0;
 //Card Click 
 
-
-function clickedCard(event){
-
-
-}
 Cards.forEach(function(card){
 	card.addEventListener('click', function (event) {
 	// with each click increment moves and open the card	
